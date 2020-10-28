@@ -1,7 +1,4 @@
-_______________________________________
-Requirements
--jQuery/Ajax/Bootstrap
-
+more details in the included word file
 _______________________________________
 Scenario
 -asset tracking application
