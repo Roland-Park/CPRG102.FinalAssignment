@@ -18,5 +18,4 @@ d.	HRService (WebAPI – no dependencies)
   - accesses HR db (readonly), employee number as ID
 e.	AssetTracking (MVC Web Application – dependent on Domain and BLL)
   - Views: main assets, new asset, asset assignment
-    -test
 
