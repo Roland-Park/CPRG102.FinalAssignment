@@ -6,13 +6,13 @@ _______________________________________
 
 ###### Projects:
 1. Domain (class library  – no dependencies) 
-  - Asset, Asset Type, Manufacturer and Model 
+    - Asset, Asset Type, Manufacturer and Model 
 2. Data (class library – dependent on Domain) 
-  - AssetContext : DbContext, contains EF, CODE FIRST
+    - AssetContext : DbContext, contains EF, CODE FIRST
 3. BLL (class library – dependent on Data and Domain) 
-  - manager classes
+    - manager classes
 4. HRService (WebAPI – no dependencies) 
-  - accesses HR db (readonly), employee number as ID
+    - accesses HR db (readonly), employee number as ID
 5. AssetTracking (MVC Web Application – dependent on Domain and BLL)
-  - Views: main assets, new asset, asset assignment
+    - Views: main assets, new asset, asset assignment
 
