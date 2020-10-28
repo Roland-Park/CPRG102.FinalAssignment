@@ -1,10 +1,10 @@
 more details in the included word file
 _______________________________________
-Scenario
--asset tracking application
--HR db exists already (given), cannot be changed. Admin, IT, Engineering, Sales depts
+#Scenario
+  - asset tracking application
+  - HR db exists already (given), cannot be changed. Admin, IT, Engineering, Sales depts
 
-Projects:
+#Projects:
 a.	Domain (class library  – no dependencies) 
   - Asset, Asset Type, Manufacturer and Model 
 b.	Data (class library – dependent on Domain) 
