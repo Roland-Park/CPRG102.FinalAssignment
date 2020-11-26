@@ -86,7 +86,7 @@ namespace CPRG102.Final.Roland.Data.Migrations
                         column: x => x.ModelId,
                         principalTable: "Model",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.InsertData(

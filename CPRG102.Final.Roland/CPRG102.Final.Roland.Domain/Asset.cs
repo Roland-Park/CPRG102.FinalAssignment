@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace CPRG102.Final.Roland.Domain
 {
@@ -11,10 +9,13 @@ namespace CPRG102.Final.Roland.Domain
     {        
         public int Id { get; set; }
         [Required]
+        [DisplayName("Tag Number")]
         public string TagNumber { get; set; }
         [Required]
+        [DisplayName("Asset Type")]
         public int AssetTypeId { get; set; }
         [Required]
+        [DisplayName("Manufacturer")]
         public int ManufacturerId { get; set; }
         [Required]
         public int ModelId { get; set; }
@@ -22,8 +23,10 @@ namespace CPRG102.Final.Roland.Domain
         /// <summary>
         /// the employee number from the HR database
         /// </summary>
+        [DisplayName("Assigned To")]
         public string AssignedTo { get; set; }
         [Required]
+        [DisplayName("Serial Number")]
         public string SerialNumber { get; set; }
 
         #region Navigation Properties

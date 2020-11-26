@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CPRG102.Final.Roland.Data\CPRG102.Final.Roland.Data.csproj" />
+    <ProjectReference Include="..\CPRG102.Final.Roland.Domain\CPRG102.Final.Roland.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
