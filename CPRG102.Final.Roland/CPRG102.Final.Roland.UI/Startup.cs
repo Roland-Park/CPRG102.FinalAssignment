@@ -28,6 +28,7 @@ namespace CPRG102.Final.Roland.UI
             services.AddSingleton<IModelRepository, ModelRepository>();
             services.AddSingleton<IManufacturerRepository, ManufacturerRepository>();
             services.AddSingleton<AssetContext, AssetContext>();
+            services.AddSingleton<IEmployeeService, EmployeeService>();
 
             services.AddTransient<IAssetViewModelFactory, AssetViewModelFactory>();
             services.AddTransient<IAssetService, AssetService>();
