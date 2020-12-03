@@ -1,0 +1,54 @@
+﻿@model CPRG102.Final.Roland.UI.ViewModels.AssignmentPageViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Asset Assignments</h4>
+<hr />
+<div class="row">
+    <div class="col-md-2">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="UnassignedEmployees" class="control-label"></label>
+            <select asp-for="UnassignedEmployees" asp-items="@Model.UnassignedEmployees" class="form-control"></select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="AssetTypes" class="control-label"></label>
+            <select asp-for="AssetTypes" asp-items="@Model.AssetTypes" class="form-control"></select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="Manufacturers" class="control-label"></label>
+            <select asp-for="Manufacturers" asp-items="@Model.Manufacturers" class="form-control"></select>
+        </div>
+    </div>
+    <div class="col-md-2">
+
+        <div class="form-group">
+            <label asp-for="Models" class="control-label"></label>
+            <select asp-for="Models" asp-items="@Model.Models" class="form-control"></select>
+        </div>
+    </div>
+    <div class="col-md-2">
+
+        <div class="form-group">
+            <label asp-for="Assets" class="control-label"></label>
+            <select asp-for="Assets" asp-items="@Model.Assets" class="form-control"></select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <input type="submit" value="Assign" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -13,6 +13,9 @@
                 @Html.DisplayNameFor(model => model.TagNumber)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.SerialNumber)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.AssetType)
             </th>
             <th>
@@ -27,9 +30,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.AssignedTo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SerialNumber)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -40,13 +41,16 @@
                 @Html.DisplayFor(modelItem => item.TagNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AssetType)
+                @Html.DisplayFor(modelItem => item.SerialNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer)
+                @Html.DisplayFor(modelItem => item.AssetType.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Model)
+                @Html.DisplayFor(modelItem => item.Manufacturer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
@@ -54,9 +58,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AssignedTo)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SerialNumber)
-            </td>
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })

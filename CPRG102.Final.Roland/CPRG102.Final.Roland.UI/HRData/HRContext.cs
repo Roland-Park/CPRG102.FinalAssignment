@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace CPRG102.Final.Api.Data
+namespace CPRG102.Final.Roland.UI.HRData
 {
     public partial class HRContext : DbContext
     {
@@ -22,7 +22,10 @@ namespace CPRG102.Final.Api.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=HR; Trusted_Connection=True; MultipleActiveResultSets=true;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

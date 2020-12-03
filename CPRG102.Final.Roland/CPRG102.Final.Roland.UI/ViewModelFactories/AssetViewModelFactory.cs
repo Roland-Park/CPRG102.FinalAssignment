@@ -1,40 +1,45 @@
 ﻿using CPRG102.Final.Roland.BLL;
+using CPRG102.Final.Roland.UI.HRData;
+using CPRG102.Final.Roland.UI.Services;
 using CPRG102.Final.Roland.UI.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CPRG102.Final.Roland.UI.ViewModelFactories
 {
     public interface IAssetViewModelFactory
     {
-        AssetViewModel CreateNew();
+        Task<AssetViewModel> CreateNew();
     }
     public class AssetViewModelFactory : IAssetViewModelFactory
     {
+        private readonly IEmployeeService employeeService;
         private readonly IAssetTypeRepository assetTypeRepository;
         private readonly IManufacturerRepository manufacturerRepository;
         private readonly IModelRepository modelRepository;
 
-        public AssetViewModelFactory(IAssetTypeRepository assetTypeRepository, IManufacturerRepository manufacturerRepository, IModelRepository modelRepository)
+        public AssetViewModelFactory(IEmployeeService employeeService, IAssetTypeRepository assetTypeRepository, IManufacturerRepository manufacturerRepository, IModelRepository modelRepository)
         {
+            this.employeeService = employeeService;
             this.assetTypeRepository = assetTypeRepository;
             this.manufacturerRepository = manufacturerRepository;
             this.modelRepository = modelRepository;
         }
 
-
-        public AssetViewModel CreateNew()
+        public async Task<AssetViewModel> CreateNew()
         {
-            var assetViewModel = new AssetViewModel();
+            var employees = new List<Employee>() { new Employee() { EmployeeNumber = null, FirstName = "(None)" } };
+            employees.AddRange(await employeeService.GetEmployees());
+            var assetViewModel = new AssetViewModel()
+            {
+                AssetTypeList = new SelectList(assetTypeRepository.GetAll(), "Id", "Name"),
+                ManufacturerList = new SelectList(manufacturerRepository.GetAll(), "Id", "Name"),
+                ModelList = new SelectList(modelRepository.GetAll(), "Id", "Name"),
+                EmployeeList = new SelectList(employees, "EmployeeNumber", "FullName")
+            };
 
-            assetViewModel.AssetTypeList = new SelectList(assetTypeRepository.GetAll(), "Id", "Name");
-            assetViewModel.ManufacturerList = new SelectList(manufacturerRepository.GetAll(), "Id", "Name");
-            assetViewModel.ModelList = new SelectList(modelRepository.GetAll(), "Id", "Name");
-
-            return assetViewModel;
+        return assetViewModel;
         }
     }
 }

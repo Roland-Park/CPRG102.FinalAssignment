@@ -19,4 +19,8 @@
     <ProjectReference Include="..\CPRG102.Final.Roland.Domain\CPRG102.Final.Roland.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="HRData\" />
+  </ItemGroup>
+
 </Project>

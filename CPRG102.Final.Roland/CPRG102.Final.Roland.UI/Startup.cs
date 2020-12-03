@@ -1,5 +1,6 @@
 using CPRG102.Final.Roland.BLL;
 using CPRG102.Final.Roland.Data;
+using CPRG102.Final.Roland.UI.HRData;
 using CPRG102.Final.Roland.UI.Services;
 using CPRG102.Final.Roland.UI.ViewModelFactories;
 using Microsoft.AspNetCore.Builder;
@@ -28,9 +29,11 @@ namespace CPRG102.Final.Roland.UI
             services.AddSingleton<IModelRepository, ModelRepository>();
             services.AddSingleton<IManufacturerRepository, ManufacturerRepository>();
             services.AddSingleton<AssetContext, AssetContext>();
+            services.AddSingleton<HRContext, HRContext>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
 
             services.AddTransient<IAssetViewModelFactory, AssetViewModelFactory>();
+            services.AddTransient<IAssignmentPageViewModelFactory, AssignmentPageViewModelFactory>();
             services.AddTransient<IAssetService, AssetService>();
         }
 

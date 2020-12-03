@@ -1,44 +1,43 @@
-﻿using CPRG102.Final.Api.Data;
+﻿using CPRG102.Final.Roland.UI.HRData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CPRG102.Final.Api.Controllers
+namespace CPRG102.Final.Roland.UI.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-    public class EmployeeController : ControllerBase
+    public class HRController : ControllerBase
     {
-        public EmployeeController(HRContext context)
+        private readonly HRContext context;
+        public HRController(HRContext context)
         {
-            Context = context;
+            this.context = context;
         }
-
-        public HRContext Context { get; }
 
         [HttpGet]
         public IEnumerable<Employee> Get()
         {
-            return Context.Employees.ToList();
+            return context.Employees.ToList();
         }
 
         [HttpGet("{employeeNumber}")]
         public IEnumerable<Employee> Get(string employeeNumber)
         {
-            return Context.Employees.Where(x => x.EmployeeNumber == employeeNumber).ToList();
+            return context.Employees.Where(x => x.EmployeeNumber == employeeNumber).ToList();
         }
 
         [HttpPost]
         public IActionResult Post(Employee employee)
         {
-            Context.Employees.Add(employee);
-            Context.SaveChanges();
+            context.Employees.Add(employee);
+            context.SaveChanges();
 
             return CreatedAtAction("Post", employee);
         }
+
     }
 }

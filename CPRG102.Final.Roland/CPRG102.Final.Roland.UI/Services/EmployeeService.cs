@@ -1,4 +1,4 @@
-﻿using CPRG102.Final.Roland.UI.Models;
+﻿using CPRG102.Final.Roland.UI.HRData;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace CPRG102.Final.Roland.UI.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly HttpClient httpClient;
-        private readonly string url = @"https://localhost:44361/Employee";
+        private readonly string url = @"https://localhost:5001/api/HR";
         public EmployeeService()
         {
             httpClient = new HttpClient();

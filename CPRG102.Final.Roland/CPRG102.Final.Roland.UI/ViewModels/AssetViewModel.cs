@@ -29,5 +29,6 @@ namespace CPRG102.Final.Roland.UI.ViewModels
         public SelectList AssetTypeList { get; set; }
         public SelectList ManufacturerList { get; set; }
         public SelectList ModelList { get; set; }
+        public SelectList EmployeeList { get; set; }
     }
 }
