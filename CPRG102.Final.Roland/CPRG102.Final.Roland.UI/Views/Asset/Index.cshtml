@@ -3,67 +3,54 @@
 @{
     ViewData["Title"] = "Index";
 }
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TagNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SerialNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssetType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Manufacturer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssignedTo)
-            </th>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TagNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SerialNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssetType.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedTo)
-            </td>
+<div id="uxDisplay">
+    <select id="assetTypes" asp-items="ViewBag.AssetTypes">
+    </select>
+    <select id="assignedOrUnassigned">
+        <option value="0">All Assets</option>
+        <option value="1">Assigned</option>
+        <option value="2">Unassigned</option>
+    </select>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+    <label for="employeeNumber">Employee Number</label>
+    <input name="employeeNumber" id="employeeNumber">
+
+</div>
+<br />
+<div id="results"></div>
+
+@section Scripts
+{
+    <script>
+        loadStudents(0, null, 0);
+        $(document).ready(function () {
+            $('#assetTypes').change(function () {
+                filterByParameters();
+            });
+            $('#assignedOrUnassigned').change(function () {
+                filterByParameters();
+            });
+            $('#employeeNumber').on('input', function () {
+                filterByParameters();
+            });
+        });
+
+        function filterByParameters() {
+            var assetType = $('#assetTypes').val();
+            var assignedOrUnassigned = $('#assignedOrUnassigned').val();
+            var employeeNumber = $('#employeeNumber').val();
+            loadStudents(assignedOrUnassigned, employeeNumber, assetType);
+        }
+
+        function loadStudents(assignedOrUnassigned, employeeNumber, assetType) {
+            $.ajax({
+                url: "/Asset/GetFilteredAssets",
+                type: "GET",
+                data: { assignedOrUnassigned: assignedOrUnassigned, employeeNumber: employeeNumber, assetTypeId: assetType}
+            }).done(function (data) {
+                $('#results').html(data)
+            });
+        }
+    </script>
 }
-    </tbody>
-</table>
