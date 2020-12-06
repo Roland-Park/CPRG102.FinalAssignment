@@ -6,6 +6,6 @@
     var assetSelectList = new SelectList(Model, "Id", "AssetDetails");
 }
 <div class="form-group">
-    <label for="Assets" class="control-label">Assets</label>
-    <select name="Assets" asp-items="assetSelectList" class="form-control"></select>
+    <label for="Assets" class="control-label">Asset (Assigned To)</label>
+    <select id="assetSelect" asp-items="assetSelectList" class="form-control"></select>
 </div>

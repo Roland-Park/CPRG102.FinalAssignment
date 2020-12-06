@@ -1,0 +1,23 @@
+﻿@model bool
+
+@{
+    if (Model)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success</strong> Asset Assigned
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>NOPE</strong> Something went wrong. Have you selected an employee and an asset?
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+

@@ -7,36 +7,39 @@
 <h4>Asset Assignments</h4>
 <hr />
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-lg-3">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="UnassignedEmployees" class="control-label"></label>
-            <select asp-for="UnassignedEmployees" asp-items="@Model.UnassignedEmployees" class="form-control"></select>
+            <select id="employeeSelect" asp-for="UnassignedEmployees" asp-items="@Model.UnassignedEmployees" class="form-control"></select>
         </div>
     </div>
-    <div class="col-md-2">
+
+    <div class="col-lg-3">
         <div class="form-group">
             <label asp-for="AssetTypes" class="control-label"></label>
             <select id="assetTypeSelect" asp-for="AssetTypes" asp-items="@Model.AssetTypes" class="form-control"></select>
         </div>
     </div>
+
     <div class="col-md-4">
         <div id="assetSelectList"></div>
-        </div>
     </div>
+</div>
+
 <div class="row">
     <div class="col-md-2">
         <div class="form-group">
-            <input type="submit" value="Assign" class="btn btn-primary" />
+            <input id="assignBtn" onclick="assignClick()" type="submit" value="Assign" class="btn btn-primary" />
         </div>
     </div>
 </div>
+<div id="statusMessage"></div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         loadStudents(0);
-        debugger;
         $(document).ready(function () {
             $('#assetTypeSelect').change(function () {
                 filterByParameters();
@@ -45,7 +48,6 @@
 
         function filterByParameters() {
             var assetTypeId = $('#assetTypeSelect').val()[0];
-            console.log("assetTypeId: " + assetTypeId);
             loadStudents(assetTypeId);
         }
 
@@ -55,8 +57,23 @@
                 type: "GET",
                 data: { assetTypeId: assetTypeId }
             }).done(function (data) {
-                console.log("TypeId: " + assetTypeId);
                 $('#assetSelectList').html(data)
+            });
+        }
+
+        function assignClick() {
+            var employeeNumber = $('#employeeSelect').val()[0];
+            var assetId = $('#assetSelect').val();
+            assign(employeeNumber, assetId);
+        }
+
+        function assign(employeeNumber, assetId) {
+            $.ajax({
+                url: "/Assignment/AssignAsset",
+                type: "GET",
+                data: { employeeNumber: employeeNumber, assetId: assetId }
+            }).done(function (data) {
+                $('#statusMessage').html(data)
             });
         }
     </script>

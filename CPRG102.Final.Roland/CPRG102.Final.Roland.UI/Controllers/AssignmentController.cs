@@ -23,6 +23,7 @@ namespace CPRG102.Final.Roland.UI.Controllers
             return View(assignmentPageViewModel);
         }
 
+        [HttpGet]
         public IActionResult GetAssetSelectList(int assetTypeId)
         {
             var assetsOfType = assetTypeId == 0? assetRepository.GetAllAssets() : assetRepository.GetAssetsByType(assetTypeId);
@@ -37,6 +38,21 @@ namespace CPRG102.Final.Roland.UI.Controllers
                 });
             }
             return PartialView("_GetAssetSelectList", assetsOfType);
+        }
+
+        [HttpGet]
+        public IActionResult AssignAsset(string employeeNumber, int assetId)
+        {
+            var success = false;
+            var asset = assetRepository.GetAssetById(assetId);
+            
+            if(asset != null && employeeNumber != null)
+            {
+                asset.AssignedTo = employeeNumber;
+                success = assetRepository.UpdateAsset(asset);
+            }            
+
+            return PartialView("_ConfirmAssetAssignment", success);
         }
     }
 }

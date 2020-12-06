@@ -19,12 +19,10 @@ _______________________________________
 #### TODO
 - Main Assets View (index)
 1.	DONE Displays all assets (assigned and unassigned) in the system by default
-2.	filter the display to display only assets that are assigned 
-3.	filter the display to show only assets that are not assigned
+2.	DONE filter the display to display only assets that are assigned 
+3.	DONE filter the display to show only assets that are not assigned
 4.	filter the assets assigned to a selected employee
-5.	filter the assets to show only assets of a selected asset type
-6.	use buttons or links to filter
-7.	filtered data is all displayed asynchronously
+5.	DONE filter the assets to show only assets of a selected asset type
 8.	DONE Use the Bootstrap grid system to display the links/buttons and the employee and asset type drop-down lists in one content area and the table in the other. They display in a horizontal row when the window size is large and will stack as the windows size decreases.
 
 - New Asset View
@@ -34,15 +32,14 @@ _______________________________________
 4.  (Added by me) Limit dropdown list contents if a selection is made
 
 - Assignments View
-1.	A list box displays only employees who have not been assigned any assets.
+1.	DONE A list box displays only employees who have not been assigned any assets.
 2.	DONE Drop-down lists for assets of that asset type. A selection is made from each of the drop-down lists.
 3.	Selections are posted back to the controller so each asset can be updated with the assignment to that employee.
 4.	DONE Use the Bootstrap grid system on this form also, so each of the drop-downs is placed in column of the grid. The grid only has one row.
-5. (Added by me) Limit dropdown list contents if a selection is made
+5. DONE (Added by me) Limit dropdown list contents if a selection is made
 
 - _Layout
-1.	DONE A fixed navigation menu that is collapsible 
-2.	Optional image of your choice
+1.	DONE A fixed navigation menu that is collapsible
 3.	DONE A simple footer with copyright for your company
 
 - HR Service

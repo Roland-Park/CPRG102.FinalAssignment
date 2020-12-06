@@ -11,12 +11,11 @@ namespace CPRG102.Final.Roland.BLL
     public interface IAssetRepository
     {
         List<Asset> GetAllAssets();
-        List<Asset> GetAssetsAssignedToEmployee(string employeeId);
-        List<Asset> GetUnassignedAssets();
         List<Asset> GetAssetsByType(int assetId);
         void CreateAsset(Asset asset);
         void DeleteAsset(int assetId);
-        void UpdateAsset(Asset asset);
+        bool UpdateAsset(Asset asset);
+        Asset GetAssetById(int assetId);
     }
     public class AssetRepository : IAssetRepository
     {
@@ -32,30 +31,6 @@ namespace CPRG102.Final.Roland.BLL
             try
             {
                 return assetContext.Assets.Include("AssetType").Include("Manufacturer").Include("Model").ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error fetching asset(s). " + ex.Message);
-            }
-        }
-
-        public List<Asset> GetAssetsAssignedToEmployee(string employeeId)
-        {
-            try
-            {
-                return assetContext.Assets.Include("AssetType").Include("Manufacturer").Include("Model").Where(x => x.AssignedTo == employeeId).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error fetching asset(s). " + ex.Message);
-            }
-        }
-
-        public List<Asset> GetUnassignedAssets()
-        {
-            try
-            {
-                return assetContext.Assets.Include("AssetType").Include("Manufacturer").Include("Model").Where(x => string.IsNullOrWhiteSpace(x.AssignedTo)).ToList();
             }
             catch (Exception ex)
             {
@@ -106,8 +81,9 @@ namespace CPRG102.Final.Roland.BLL
             }            
         }
 
-        public void UpdateAsset(Asset asset)
+        public bool UpdateAsset(Asset asset)
         {
+            var success = false;
             try
             {
                 var allAssets = assetContext.Assets;
@@ -117,11 +93,26 @@ namespace CPRG102.Final.Roland.BLL
                 {
                     allAssets.Update(assetToUpdate);
                     assetContext.SaveChanges();
+                    success = true;
                 }
             }
             catch(Exception ex)
             {
                 throw new Exception("Error updating asset. " + ex.Message);
+            }
+
+            return success;
+        }
+
+        public Asset GetAssetById(int assetId)
+        {
+            try
+            {
+                return assetContext.Assets.Include("AssetType").Include("Manufacturer").Include("Model").FirstOrDefault(x => x.Id == assetId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching asset with id = {assetId}. " + ex.Message);
             }
         }
     }
