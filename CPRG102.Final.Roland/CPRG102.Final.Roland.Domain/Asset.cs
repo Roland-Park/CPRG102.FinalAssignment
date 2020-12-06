@@ -28,6 +28,15 @@ namespace CPRG102.Final.Roland.Domain
         [Required]
         [DisplayName("Serial Number")]
         public string SerialNumber { get; set; }
+        [NotMapped]
+        public string AssetDetails 
+        {
+            get 
+            {
+                var employeeId = AssignedTo == null ? "Not Assigned" : AssignedTo;
+                return $"{Manufacturer.Name} {Model.Name} ({employeeId})";
+            }
+        }
 
         #region Navigation Properties
         public AssetType AssetType { get; set; }

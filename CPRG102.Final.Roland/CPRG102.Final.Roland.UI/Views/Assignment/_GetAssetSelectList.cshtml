@@ -1,0 +1,11 @@
+﻿@model IEnumerable<CPRG102.Final.Roland.Domain.Asset>
+
+@{ 
+    var assetList = Model.ToList();
+
+    var assetSelectList = new SelectList(Model, "Id", "AssetDetails");
+}
+<div class="form-group">
+    <label for="Assets" class="control-label">Assets</label>
+    <select name="Assets" asp-items="assetSelectList" class="form-control"></select>
+</div>

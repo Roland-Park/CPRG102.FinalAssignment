@@ -1,0 +1,63 @@
+﻿@model CPRG102.Final.Roland.UI.ViewModels.AssignmentPageViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Asset Assignments</h4>
+<hr />
+<div class="row">
+    <div class="col-md-2">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="UnassignedEmployees" class="control-label"></label>
+            <select asp-for="UnassignedEmployees" asp-items="@Model.UnassignedEmployees" class="form-control"></select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="AssetTypes" class="control-label"></label>
+            <select id="assetTypeSelect" asp-for="AssetTypes" asp-items="@Model.AssetTypes" class="form-control"></select>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div id="assetSelectList"></div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <input type="submit" value="Assign" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        loadStudents(0);
+        debugger;
+        $(document).ready(function () {
+            $('#assetTypeSelect').change(function () {
+                filterByParameters();
+            });
+        });
+
+        function filterByParameters() {
+            var assetTypeId = $('#assetTypeSelect').val()[0];
+            console.log("assetTypeId: " + assetTypeId);
+            loadStudents(assetTypeId);
+        }
+
+        function loadStudents(assetTypeId) {
+            $.ajax({
+                url: "/Assignment/GetAssetSelectList",
+                type: "GET",
+                data: { assetTypeId: assetTypeId }
+            }).done(function (data) {
+                console.log("TypeId: " + assetTypeId);
+                $('#assetSelectList').html(data)
+            });
+        }
+    </script>
+}

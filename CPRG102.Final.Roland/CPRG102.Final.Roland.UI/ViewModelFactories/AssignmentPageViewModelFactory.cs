@@ -33,22 +33,36 @@ namespace CPRG102.Final.Roland.UI.ViewModelFactories
 
         public async Task<AssignmentPageViewModel> Create()
         {
-            var assetTypes = assetTypeRepository.GetAll();
-            var manufacturers = manufacturerRepository.GetAll();
-            var models = modelRepository.GetAll();
-            var assets = assetRepository.GetAllAssets();
-            var unassignedEmployees = await employeeService.GetEmployees();
+            var assetTypes = new List<AssetType>() { new AssetType() { Id = 0, Name = "All" } };
+            assetTypes.AddRange(assetTypeRepository.GetAll());
+
+            var allAssets = assetRepository.GetAllAssets();
+            var allEmployees = await employeeService.GetEmployees();
+
+            var unassignedEmployees = allEmployees.Except(GetAssignedEmployees(allAssets, allEmployees));
 
             var assignmentPageViewModel = new AssignmentPageViewModel()
             {
                 AssetTypes = new SelectList(assetTypes, "Id", "Name"),
-                Manufacturers = new SelectList(manufacturers, "Id", "Name"),
-                Models = new SelectList(models, "Id", "Name"),
-                Assets = new SelectList(assets, "Id", "SerialNumber"),
-                UnassignedEmployees = new SelectList(unassignedEmployees, "EmployeeNumber", "FullName") //TODO: make this only the unassigned ones
+                Assets = new SelectList(allAssets, "Id", "AssetDetails"),
+                UnassignedEmployees = new SelectList(unassignedEmployees, "EmployeeNumber", "FullName")
             };
 
             return assignmentPageViewModel;
+        }
+
+        private List<Employee> GetAssignedEmployees(List<Asset> allAssets, List<Employee> allEmployees)
+        {
+            var assignedAssets = allAssets.Where(x => x.AssignedTo != null).ToList();
+
+            var assignedEmployees = new List<Employee>();
+            foreach (var assignedAsset in assignedAssets)
+            {
+                var employeeAssignedToAsset = allEmployees.FirstOrDefault(x => x.EmployeeNumber == assignedAsset.AssignedTo);
+                assignedEmployees.Add(employeeAssignedToAsset);
+            }
+
+            return assignedEmployees;
         }
     }
 }
