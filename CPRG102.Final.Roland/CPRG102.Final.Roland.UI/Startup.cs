@@ -5,6 +5,7 @@ using CPRG102.Final.Roland.UI.Services;
 using CPRG102.Final.Roland.UI.ViewModelFactories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,13 +25,16 @@ namespace CPRG102.Final.Roland.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IAssetRepository, AssetRepository>();
-            services.AddSingleton<IAssetTypeRepository, AssetTypeRepository>();
-            services.AddSingleton<IModelRepository, ModelRepository>();
-            services.AddSingleton<IManufacturerRepository, ManufacturerRepository>();
-            services.AddSingleton<AssetContext, AssetContext>();
-            services.AddSingleton<HRContext, HRContext>();
-            services.AddSingleton<IEmployeeService, EmployeeService>();
+
+            services.AddDbContext<HRContext, HRContext>(o => o.UseSqlServer(Configuration.GetConnectionString("HR")));
+            services.AddDbContext<AssetContext, AssetContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Assets")));
+
+            services.AddScoped<IAssetRepository, AssetRepository>();
+            services.AddScoped<IAssetTypeRepository, AssetTypeRepository>();
+            services.AddScoped<IModelRepository, ModelRepository>();
+            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             services.AddTransient<IAssetViewModelFactory, AssetViewModelFactory>();
             services.AddTransient<IAssignmentPageViewModelFactory, AssignmentPageViewModelFactory>();

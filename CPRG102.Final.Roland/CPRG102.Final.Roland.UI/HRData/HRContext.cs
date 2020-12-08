@@ -8,25 +8,12 @@ namespace CPRG102.Final.Roland.UI.HRData
 {
     public partial class HRContext : DbContext
     {
-        public HRContext()
-        {
-        }
+        public HRContext(){}
 
-        public HRContext(DbContextOptions<HRContext> options)
-            : base(options)
-        {
-        }
+        public HRContext(DbContextOptions<HRContext> options) : base(options){}
 
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=HR; Trusted_Connection=True; MultipleActiveResultSets=true;");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

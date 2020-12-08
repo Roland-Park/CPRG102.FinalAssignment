@@ -10,10 +10,7 @@ namespace CPRG102.Final.Roland.Data
         public DbSet<Model> Models { get; set; }
         public DbSet<AssetType> AssetTypes { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=AssetDb;Trusted_Connection=True");
-        }
+        public AssetContext(DbContextOptions<AssetContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
