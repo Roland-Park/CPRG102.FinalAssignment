@@ -1,6 +1,5 @@
 ﻿using CPRG102.Final.Roland.BLL;
 using CPRG102.Final.Roland.Domain;
-using CPRG102.Final.Roland.UI.HRData;
 using CPRG102.Final.Roland.UI.Services;
 using CPRG102.Final.Roland.UI.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,29 +16,39 @@ namespace CPRG102.Final.Roland.UI.ViewModelFactories
     }
     public class AssignmentPageViewModelFactory : IAssignmentPageViewModelFactory
     {
-        private readonly IModelRepository modelRepository;
         private readonly IAssetTypeRepository assetTypeRepository;
         private readonly IAssetRepository assetRepository;
-        private readonly IManufacturerRepository manufacturerRepository;
         private readonly IEmployeeService employeeService;
-        public AssignmentPageViewModelFactory(IAssetRepository assetRepository, IModelRepository modelRepository, IAssetTypeRepository assetTypeRepository, IManufacturerRepository manufacturerRepository, IEmployeeService employeeService)
+        public AssignmentPageViewModelFactory(IAssetRepository assetRepository, IAssetTypeRepository assetTypeRepository, IEmployeeService employeeService)
         {
             this.assetRepository = assetRepository;
-            this.modelRepository = modelRepository;
             this.assetTypeRepository = assetTypeRepository;
-            this.manufacturerRepository = manufacturerRepository;
             this.employeeService = employeeService;
         }
 
         public async Task<AssignmentPageViewModel> Create()
         {
-            var assetTypes = new List<AssetType>() { new AssetType() { Id = 0, Name = "All" } };
-            assetTypes.AddRange(assetTypeRepository.GetAll());
+            var assetTypes = assetTypeRepository.GetAll();
 
             var allAssets = assetRepository.GetAllAssets();
-            var allEmployees = await employeeService.GetEmployees();
 
-            var unassignedEmployees = allEmployees.Except(GetAssignedEmployees(allAssets, allEmployees));
+            var unassignedEmployees = new List<Employee>();
+            try
+            {
+                var allEmployees = await employeeService.GetEmployees();
+
+                unassignedEmployees = allEmployees.Except(GetAssignedEmployees(allAssets, allEmployees)).ToList();
+
+                if (unassignedEmployees == null || unassignedEmployees.Count < 1)
+                {
+                    unassignedEmployees.Add(new Employee { EmployeeNumber = "error", FirstName = "No", LastName = "Employees" });
+                }
+            }
+            catch(Exception ex)
+            {
+                //log ex
+                unassignedEmployees.Add(new Employee { EmployeeNumber = "None", FirstName = "HRService", LastName = "Error" });
+            }           
 
             var assignmentPageViewModel = new AssignmentPageViewModel()
             {

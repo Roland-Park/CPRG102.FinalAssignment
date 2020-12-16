@@ -5,53 +5,55 @@
 }
 
 <div id="uxDisplay">
-    <select id="assetTypes" asp-items="ViewBag.AssetTypes">
-    </select>
-    <select id="assignedOrUnassigned">
-        <option value="0">All Assets</option>
-        <option value="1">Assigned</option>
-        <option value="2">Unassigned</option>
-    </select>
+    <div class="form-group row">
+        <div class="col-sm-2 filtersLabel">
+            <h5>Filter Assets By:</h5>
+        </div>
+        <select id="assetTypes" class="form-control col-lg-2" asp-items="ViewBag.AssetTypes">
+        </select>
+        <select id="assignedOrUnassigned" class="form-control col-lg-2">
+            <option value="0">All Assets</option>
+            <option value="1">Assigned</option>
+            <option value="2">Unassigned</option>
+        </select>
 
-    <label for="employeeNumber">Employee Number</label>
-    <input name="employeeNumber" id="employeeNumber">
-
+        <input name="employeeNumber" id="employeeNumber" class="form-control col-lg-2" placeholder="Employee#">
+    </div>
 </div>
-<br />
-<div id="results"></div>
+    <br />
+    <div id="results"></div>
 
-@section Scripts
+    @section Scripts
 {
-    <script>
-        loadStudents(0, null, 0);
-        debugger;
-        $(document).ready(function () {
-            $('#assetTypes').change(function () {
-                filterByParameters();
+        <script>
+            loadStudents(0, null, 0);
+            $(document).ready(function () {
+                $('#assetTypes').change(function () {
+                    filterByParameters();
+                });
+                $('#assignedOrUnassigned').change(function () {
+                    filterByParameters();
+                });
+                $('#employeeNumber').on('input', function () {
+                    filterByParameters();
+                });
             });
-            $('#assignedOrUnassigned').change(function () {
-                filterByParameters();
-            });
-            $('#employeeNumber').on('input', function () {
-                filterByParameters();
-            });
-        });
 
-        function filterByParameters() {
-            var assetType = $('#assetTypes').val();
-            var assignedOrUnassigned = $('#assignedOrUnassigned').val();
-            var employeeNumber = $('#employeeNumber').val();
-            loadStudents(assignedOrUnassigned, employeeNumber, assetType);
-        }
+            function filterByParameters() {
+                var assetType = $('#assetTypes').val();
+                var assignedOrUnassigned = $('#assignedOrUnassigned').val();
+                var employeeNumber = $('#employeeNumber').val();
+                loadStudents(assignedOrUnassigned, employeeNumber, assetType);
+            }
 
-        function loadStudents(assignedOrUnassigned, employeeNumber, assetType) {
-            $.ajax({
-                url: "/Asset/GetFilteredAssets",
-                type: "GET",
-                data: { assignedOrUnassigned: assignedOrUnassigned, employeeNumber: employeeNumber, assetTypeId: assetType}
-            }).done(function (data) {
-                $('#results').html(data)
-            });
-        }
-    </script>
-}
+            function loadStudents(assignedOrUnassigned, employeeNumber, assetType) {
+                $.ajax({
+                    url: "/Asset/GetFilteredAssets",
+                    type: "GET",
+                    data: { assignedOrUnassigned: assignedOrUnassigned, employeeNumber: employeeNumber, assetTypeId: assetType }
+                }).done(function (data) {
+                    $('#results').html(data)
+                });
+            }
+        </script>
+    }

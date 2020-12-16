@@ -1,6 +1,5 @@
 using CPRG102.Final.Roland.BLL;
 using CPRG102.Final.Roland.Data;
-using CPRG102.Final.Roland.UI.HRData;
 using CPRG102.Final.Roland.UI.Services;
 using CPRG102.Final.Roland.UI.ViewModelFactories;
 using Microsoft.AspNetCore.Builder;
@@ -26,7 +25,6 @@ namespace CPRG102.Final.Roland.UI
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<HRContext, HRContext>(o => o.UseSqlServer(Configuration.GetConnectionString("HR")));
             services.AddDbContext<AssetContext, AssetContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Assets")));
 
             services.AddScoped<IAssetRepository, AssetRepository>();
@@ -34,11 +32,11 @@ namespace CPRG102.Final.Roland.UI
             services.AddScoped<IModelRepository, ModelRepository>();
             services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
 
-            services.AddScoped<IEmployeeService, EmployeeService>();
 
-            services.AddTransient<IAssetViewModelFactory, AssetViewModelFactory>();
-            services.AddTransient<IAssignmentPageViewModelFactory, AssignmentPageViewModelFactory>();
-            services.AddTransient<IAssetService, AssetService>();
+            services.AddScoped<IAssetViewModelFactory, AssetViewModelFactory>();
+            services.AddScoped<IAssignmentPageViewModelFactory, AssignmentPageViewModelFactory>();
+
+            services.AddScoped<IEmployeeService, EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

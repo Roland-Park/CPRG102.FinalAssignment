@@ -1,13 +1,13 @@
-﻿using CPRG102.Final.Roland.UI.HRData;
-using Microsoft.AspNetCore.Http;
+﻿using CPRG102.Final.HRService.HRData;
+using CPRG102.Final.Roland.Domain;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace CPRG102.Final.Roland.UI.Controllers
+namespace CPRG102.Final.HRService.Controllers
 {
+    [EnableCors("FunnestPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class HRController : ControllerBase
@@ -38,6 +38,5 @@ namespace CPRG102.Final.Roland.UI.Controllers
 
             return CreatedAtAction("Post", employee);
         }
-
     }
 }

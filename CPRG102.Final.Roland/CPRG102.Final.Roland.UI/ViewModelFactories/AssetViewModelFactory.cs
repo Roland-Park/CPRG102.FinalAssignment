@@ -1,5 +1,5 @@
 ﻿using CPRG102.Final.Roland.BLL;
-using CPRG102.Final.Roland.UI.HRData;
+using CPRG102.Final.Roland.Domain;
 using CPRG102.Final.Roland.UI.Services;
 using CPRG102.Final.Roland.UI.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;

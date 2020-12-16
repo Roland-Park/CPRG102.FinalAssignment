@@ -1,10 +1,8 @@
-﻿using System;
+﻿using CPRG102.Final.Roland.Domain;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-
 #nullable disable
 
-namespace CPRG102.Final.Roland.UI.HRData
+namespace CPRG102.Final.HRService.HRData
 {
     public partial class HRContext : DbContext
     {

@@ -44,6 +44,11 @@ namespace CPRG102.Final.Roland.UI.Controllers
         public IActionResult AssignAsset(string employeeNumber, int assetId)
         {
             var success = false;
+            if(employeeNumber == "None")
+            {
+                return PartialView("_ConfirmAssetAssignment", success);
+            }
+
             var asset = assetRepository.GetAssetById(assetId);
             
             if(asset != null && employeeNumber != null)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace CPRG102.Final.Roland.UI.HRData
+namespace CPRG102.Final.Roland.Domain
 {
     public partial class Department
     {
