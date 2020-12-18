@@ -5,10 +5,12 @@ namespace CPRG102.Final.Roland.UI.ViewModels
 {
     public class AssignmentPageViewModel
     {
-        [Display(Name ="Employee")]
+        [Display(Name ="Select Employee")]
         public SelectList UnassignedEmployees { get; set; }
-        [Display(Name = "Asset Type")]
+        [Display(Name = "Filter Asset Type")]
         public SelectList AssetTypes { get; set; }
+
+        [Display(Name = "Select Asset")]
         public SelectList Assets { get; set; }
     }
 }

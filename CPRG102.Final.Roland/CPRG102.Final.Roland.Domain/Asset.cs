@@ -33,6 +33,9 @@ namespace CPRG102.Final.Roland.Domain
         {
             get 
             {
+                if(Manufacturer == null || Model == null)
+                    return "";
+
                 var employeeId = AssignedTo == null ? "Not Assigned" : AssignedTo;
                 return $"{Manufacturer.Name} {Model.Name} ({employeeId})";
             }
